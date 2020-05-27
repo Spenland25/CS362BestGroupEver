@@ -1,0 +1,21 @@
+CREATE TABLE `#change this to your server name#`.`userinfo` ( 
+`userId` INT NOT NULL AUTO_INCREMENT,
+`userName` VARCHAR(25) NOT NULL , 
+`password` VARCHAR(25) NOT NULL , 
+`infected` ENUM('YES','NO') NOT NULL DEFAULT 'NO',
+
+PRIMARY KEY(userId)
+
+);
+
+CREATE TABLE `#change this to your server name#`.`locationdata` ( 
+`uId` INT NOT NULL, 
+`locationName` VARCHAR(30) NOT NULL , 
+`visitDate` DATE NOT NULL , 
+`isInfected` ENUM('Yes','NO') NOT NULL DEFAULT 'NO', 
+
+PRIMARY KEY(uId),
+FOREIGN KEY(uId)
+	REFERENCES userinfo(userId)
+
+);
