@@ -3,6 +3,7 @@ CREATE TABLE `#change this to your server name#`.`userinfo` (
 `userName` VARCHAR(25) NOT NULL , 
 `password` VARCHAR(25) NOT NULL , 
 `infected` ENUM('YES','NO') NOT NULL DEFAULT 'NO',
+`isAdmin` ENUM('YES','NO') NOT NULL DEFAULT 'NO',
 
 PRIMARY KEY(userId)
 
