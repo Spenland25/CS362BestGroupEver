@@ -1,23 +1,34 @@
 CREATE TABLE `#change this to your server name#`.`userinfo` ( 
-`userId` INT NOT NULL AUTO_INCREMENT,
+`userId` INT NOT NULL AUTO_INCREMENT ,
 `userName` VARCHAR(25) NOT NULL , 
 `password` VARCHAR(25) NOT NULL , 
-`infected` ENUM('YES','NO') NOT NULL DEFAULT 'NO',
-`isAdmin` ENUM('YES','NO') NOT NULL DEFAULT 'NO',
+`infected` ENUM('YES','NO') NOT NULL DEFAULT 'NO' ,
 
 PRIMARY KEY(userId)
 
 );
 
-CREATE TABLE `#change this to your server name#`.`locationdata` ( 
-`uId` INT NOT NULL, 
-`locationName` VARCHAR(30) NOT NULL , 
-`visitDate` DATE NOT NULL , 
+CREATE TABLE `#change this to your server name#`.`locationinfections` (
+`locationId` INT NOT NULL AUTO_INCREMENT ,
+`locationName` VARCHAR(30) NOT NULL ,
+`infectionPercent` DOUBLE(5,2) ,
 `isInfected` ENUM('YES','NO') NOT NULL DEFAULT 'NO', 
 
-FOREIGN KEY(uId)
-	REFERENCES userinfo(userId)
+PRIMARY KEY(locationId)
 
+);
+
+
+CREATE TABLE `#change this to your server name#`.`locationdata` ( 
+`uId` INT NOT NULL , 
+`lId` INT NOT NULL ,
+`visitDate` DATE NOT NULL , 
+`visitTime` TIME NOT NULL ,
+
+FOREIGN KEY(uId)
+	REFERENCES userinfo(userId),
+FOREIGN KEY(lId)
+	REFERENCES locationinfections(lId)
 );
 
 #trigger: if the attribute infected in userinfo table is changed so is the isInfected value in the locationdata table 
@@ -25,7 +36,7 @@ create trigger isInfectedUpdate
 	after update on userinfo
 	for each row
 	begin 
-		update locationdata
-		set isInfected = 'Yes'
-		where locationdata.uId = new.userId;
+		update locationinfections
+		set isInfected = 'YES'
+		where locationinfections.locationId = new.lId;
 	end;
