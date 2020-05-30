@@ -1,42 +1,43 @@
-CREATE TABLE `#change this to your server name#`.`userinfo` ( 
-`userId` INT NOT NULL AUTO_INCREMENT ,
-`userName` VARCHAR(25) NOT NULL , 
-`password` VARCHAR(25) NOT NULL , 
-`infected` ENUM('YES','NO') NOT NULL DEFAULT 'NO' ,
+CREATE TABLE user ( 
+userID INT NOT NULL AUTO_INCREMENT ,
+userName VARCHAR(25) NOT NULL , 
+password VARCHAR(25) NOT NULL , 
+infected ENUM('YES','NO') NOT NULL DEFAULT 'NO' ,
 
-PRIMARY KEY(userId)
-
-);
-
-CREATE TABLE `#change this to your server name#`.`locationinfections` (
-`locationId` INT NOT NULL AUTO_INCREMENT ,
-`locationName` VARCHAR(30) NOT NULL ,
-`infectionPercent` DOUBLE(5,2) ,
-`isInfected` ENUM('YES','NO') NOT NULL DEFAULT 'NO', 
-
-PRIMARY KEY(locationId)
+PRIMARY KEY(userID)
 
 );
 
+CREATE TABLE location (
+locationID INT NOT NULL AUTO_INCREMENT ,
+name VARCHAR(30) NOT NULL ,
+transmitPercentage INT NOT NULL ,
+isInfected ENUM('YES','NO') NOT NULL DEFAULT 'NO',
 
-CREATE TABLE `#change this to your server name#`.`locationdata` ( 
-`uId` INT NOT NULL , 
-`lId` INT NOT NULL ,
-`visitDate` DATE NOT NULL , 
-`visitTime` TIME NOT NULL ,
+PRIMARY KEY(locationID)
 
-FOREIGN KEY(uId)
-	REFERENCES userinfo(userId),
-FOREIGN KEY(lId)
-	REFERENCES locationinfections(lId)
 );
 
-#trigger: if the attribute infected in userinfo table is changed so is the isInfected value in the locationdata table 
+
+CREATE TABLE survey ( 
+uID INT NOT NULL , 
+lID INT NOT NULL ,
+visitDate DATE NOT NULL , 
+visitTime TIME NOT NULL ,
+
+PRIMARY KEY(uID, lID, visitDate, visitTime),
+FOREIGN KEY(uID)
+	REFERENCES user(userID),
+FOREIGN KEY(lID)
+	REFERENCES location(locationID)
+);
+
+#trigger: if the attribute infected in user table is changed so is the isInfected value in the locationdata table 
 create trigger isInfectedUpdate
-	after update on userinfo
+	after update on user
 	for each row
 	begin 
-		update locationinfections
+		update location
 		set isInfected = 'YES'
-		where locationinfections.locationId = new.lId;
+		where location.locationId = new.lId;
 	end;
