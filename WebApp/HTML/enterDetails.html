@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Group Project</title>
+
+</head>
+
+<body>
+    <p>
+        <center>
+        <h1>Enter your details</h1><br><br>
+
+            <label for="location">Select a Location and Date:</label>
+
+            <form method="POST">
+                <select class="location" id="location" name="location">
+
+                    <option value="location1">Location1</option>
+                    <option value="location2">Location2</option>
+                    <option value="location3">Location3</option>
+                    <option value="location4">Location4</option>
+                    <option value="location5">Location5</option>
+                    <option value="location6">Location6</option>
+                    <option value="location7">Location7</option>
+                    <option value="location8">Location8</option>
+                    <option value="location9">Location9</option>
+                    <option value="location10">Location10</option>
+
+                </select>
+
+                <br><br><label for="date">Choose a Date:</label>
+                <input type="date" id="date" name="date" value="2020-01-01"
+                min="2020-01-01" max="2020-06-30">
+
+                <br><br><label for="date">Choose a Time:</label>
+                <input type="time" id="time" name="time" value="00:00">
+
+                <br><br>
+                <input type = "submit" name="submitDetails" value="Submit">
+                <a href="/userOptions"><input type="button" value="Menu"></a>
+            </form>
+
+            <br><br>
+            <a href="/"><input type="button" value="Logout"></a>
+
+            <br><br>
+            <p>{{message}}</p>
+
+        </center>
+    </p>
+</body>
+
+</html>

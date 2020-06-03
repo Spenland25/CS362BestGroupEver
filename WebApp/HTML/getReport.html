@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Group Project</title>
+</head>
+
+
+<body>
+    <form method="POST" action="">
+
+        <center>
+        <h1>Your probability of infection is: </h1> <br>
+
+        <p>{{message}}</p>
+
+
+        <form method="POST">
+
+            <br><br><label for="date">Select a Date:</label>
+            <input type="date" id="date" name="date" min="2020-01-01"
+            max="2020-06-30">
+
+            <br><br>
+            <input type = "submit" name="submitDetails" value="Submit">
+        </form>
+
+
+        <a href="/userOptions"><input type="button" value="Menu"></a>
+
+        <br><br>
+        <a href="/"><input type="button" value="Logout"></a>
+        <!--<input type = "submit" value="Login">-->
+        </center>
+
+    </form>
+</body>
